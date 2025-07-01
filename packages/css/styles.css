@@ -762,7 +762,10 @@ img {
 }
 
 .portfolio__img {
-  width: 265px;
+  width: 100%;
+  max-width: 1080px;
+  height: 722px;
+  object-fit: cover;
   border-radius: 0.5rem;
   justify-self: center;
 }
@@ -804,6 +807,16 @@ img {
 
 .swiper-pagination-bullet-active {
   background-color: var(--first-color);
+}
+
+/* Portfolio responsive adjustments */
+@media screen and (max-width: 767px) {
+  .portfolio__img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+  }
 }
 
 .swiper-button-prev,
@@ -1105,6 +1118,13 @@ img {
   .testimonial__description {
     text-align: center;
   }
+
+  .portfolio__img {
+    width: 100%;
+    max-width: 280px;
+    height: 187px;
+    object-fit: cover;
+  }
 }
 
 /* For medium devices */
@@ -1136,7 +1156,15 @@ img {
     justify-content: center;
   }
 
-  @media screen and (min-width: 768px) {
+  .portfolio__img {
+    width: 100%;
+    max-width: 400px;
+    height: 267px;
+    object-fit: cover;
+  }
+}
+
+@media screen and (min-width: 768px) {
     .container {
       margin-left: auto;
       margin-right: auto;
@@ -1242,6 +1270,8 @@ img {
     }
     .portfolio__img {
       width: 320px;
+      height: 214px;
+      object-fit: cover;
     }
     .portfolio__content {
       align-items: center;
@@ -1279,7 +1309,6 @@ img {
     .footer__copy {
       margin-top: 4.5rem;
     }
-  }
 }
 
 /* For large devices */
@@ -1328,5 +1357,169 @@ img {
   }
   .contact__inputs {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*==================== IMAGE MODAL ====================*/
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  overflow: auto;
+}
+
+.image-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.image-modal__content {
+  position: relative;
+  max-width: none;
+  max-height: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.image-modal__img {
+  max-width: 80%;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.image-modal.show .image-modal__img {
+  opacity: 1;
+}
+
+.image-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.image-modal__close:hover {
+  color: var(--first-color);
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.image-modal__title {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: var(--h3-font-size);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments for modal */
+@media screen and (max-width: 768px) {
+  .image-modal__content {
+    padding: 1rem;
+  }
+  
+  .image-modal__img {
+    max-width: 95%;
+    max-height: 80vh;
+  }
+  
+  .image-modal__close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .image-modal__title {
+    bottom: -40px;
+    font-size: var(--normal-font-size);
+    max-width: 90%;
+    white-space: normal;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .image-modal__content {
+    padding: 0.5rem;
+  }
+  
+  .image-modal__img {
+    max-width: 98%;
+    max-height: 75vh;
+  }
+  
+  .image-modal__close {
+    top: 0.25rem;
+    right: 0.25rem;
+    font-size: 1.25rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.25rem;
+  }
+  
+  .image-modal__title {
+    bottom: -35px;
+    font-size: var(--small-font-size);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .image-modal__content {
+    padding: 0.25rem;
+  }
+  
+  .image-modal__img {
+    max-width: 100%;
+    max-height: 70vh;
+  }
+  
+  .image-modal__close {
+    top: 0.25rem;
+    right: 0.25rem;
+    font-size: 1rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0.25rem;
+  }
+  
+  .image-modal__title {
+    bottom: -30px;
+    font-size: var(--smaller-font-size);
   }
 }

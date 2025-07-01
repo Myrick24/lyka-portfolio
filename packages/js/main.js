@@ -210,3 +210,63 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
+
+/*==================== IMAGE MODAL ====================*/
+const imageModal = document.getElementById("image-modal");
+const modalImg = document.getElementById("modal-img");
+const modalTitle = document.getElementById("modal-title");
+const modalClose = document.getElementById("modal-close");
+
+// Function to open modal
+function openImageModal(imgSrc, title) {
+  modalImg.src = imgSrc;
+  modalTitle.textContent = title;
+  imageModal.classList.add("show");
+  document.body.style.overflow = "hidden"; // Prevent scrolling
+}
+
+// Function to close modal
+function closeImageModal() {
+  imageModal.classList.remove("show");
+  document.body.style.overflow = "auto"; // Restore scrolling
+  modalImg.src = "";
+  modalTitle.textContent = "";
+}
+
+// Add click event to all portfolio buttons
+document.addEventListener("DOMContentLoaded", function () {
+  const portfolioButtons = document.querySelectorAll(".portfolio__button");
+
+  portfolioButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Get the image source from the portfolio item
+      const portfolioContent = this.closest(".portfolio__content");
+      const img = portfolioContent.querySelector(".portfolio__img");
+      const title = portfolioContent.querySelector(".portfolio__title")
+        .textContent;
+
+      if (img && img.src) {
+        openImageModal(img.src, title);
+      }
+    });
+  });
+
+  // Close modal when clicking close button
+  modalClose.addEventListener("click", closeImageModal);
+
+  // Close modal when clicking outside the image
+  imageModal.addEventListener("click", function (e) {
+    if (e.target === imageModal) {
+      closeImageModal();
+    }
+  });
+
+  // Close modal with Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && imageModal.classList.contains("show")) {
+      closeImageModal();
+    }
+  });
+});
